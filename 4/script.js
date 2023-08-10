@@ -1,4 +1,4 @@
-// "use strict";
+"use strict";
 // let x = 2;
 // const fun = function (){
 
@@ -40,13 +40,24 @@
 // };
 // console.log(this);
 
+// const obj = {
+// 	fun: function () {
+// 		console.log(this);
+// 	},
+// 	foo: () => {
+// 		console.log(this);
+// 	},
+// };
+// obj.fun();
+// obj.foo();
+
 const obj = {
-	fun: function () {
-		console.log(this);
-	},
-	foo: () => {
-		console.log(this);
-	},
+	fname: "Obj",
+	family: ["Bob", "Marley"],
 };
-obj.fun();
-obj.foo();
+const objCopy = Object.assign({}, obj);
+objCopy.family.push("Lil");
+objCopy.family.push("Nas");
+
+console.log(obj);
+console.log(objCopy);
