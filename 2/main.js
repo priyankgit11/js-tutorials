@@ -48,8 +48,8 @@
 // tips = Array();
 // totals = Array();
 // tips.push(calcTip(bills[0]));
-// tips.unshift(calcTip(bills[1]));
-// tips.unshift(calcTip(bills[2]));
+// tips.push(calcTip(bills[1]));
+// tips.push(calcTip(bills[2]));
 // totals.push(bills[0] + tips[0]);
 // totals.push(bills[1] + tips[1]);
 // totals.push(bills[2] + tips[2]);
@@ -103,22 +103,23 @@
 
 // Coding Challenge 4
 function calcTip(bill) {
-  tip = 0;
-  if (bill >= 50 && bill <= 300) tip = bill * 0.15;
-  else tip = bill * 0.2;
-  return tip;
+	tip = 0;
+	if (bill >= 50 && bill <= 300) tip = bill * 0.15;
+	else tip = bill * 0.2;
+	return tip;
 }
 function calcAverage(billArray) {
-  let sum = 0;
-  for (let i = 0; i < billArray.length; i++) sum += billArray[i];
-  return sum / billArray.length;
+	// let sum = 0;
+	// for (let i = 0; i < billArray.length; i++) sum += billArray[i];
+	// return sum / billArray.length;
+	return billArray.reduce((sum, bill) => sum + bill, 0) / billArray.length;
 }
 const bills = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
 tips = Array();
 totals = Array();
 for (let i = 0; i < bills.length; i++) {
-  tips.push(calcTip(bills[i]));
-  totals.push(bills[i] + tips[i]);
+	tips.push(calcTip(bills[i]));
+	totals.push(bills[i] + tips[i]);
 }
 console.log(totals);
 const avgArray = calcAverage(totals);
