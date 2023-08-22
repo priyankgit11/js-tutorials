@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>To Do</title>
+		<link rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="title">TODO LIST</div>
+			<div class="search">
+				<input type="text" id="searchbox" />
+			</div>
+			<div class="no-items">No Data Found</div>
+			<div class="tasks">
+				<div class="task-item">
+					<div class="task-check">
+						<input
+							type="checkbox"
+							class="task-names"
+							name="task-names"
+							id="name0"
+						/>
+						a
+					</div>
+					<div class="task-setting">
+						<img
+							src="images/edit-icon.png"
+							alt=""
+							class="icon edit"
+							id="edit0"
+						/>
+						<img
+							src="images/delete-icon.png"
+							alt=""
+							class="icon delete"
+							id="delete0"
+						/>
+					</div>
+				</div>
+				<hr />
+			</div>
+			<div class="operations">
+				<button class="icon btn" id="add">+</button>
+				<button class="icon btn" id="search">
+					<img
+						src="images/search-icon.svg"
+						alt="search-icon"
+						class="icon search-icon"
+					/>
+				</button>
+				<select name="" id="actions">
+					<option value="action" selected>Action</option>
+					<option value="delete_all">Delete All Selected</option>
+					<option value="select_all">Select All</option>
+					<option value="unselect_all">Un Select All</option>
+				</select>
+				<select name="" id="sort">
+					<option value="sort">Sort</option>
+					<option value="name_asc">A - Z</option>
+					<option value="name_dsc" selected>Z - A</option>
+					<option value="time_dsc">Newest</option>
+					<option value="time_asc">Oldest</option>
+				</select>
+				<div class="selections">
+					<input type="radio" name="selection" id="all" checked />All
+					<input type="radio" name="selection" id="active" />Active
+					<input type="radio" name="selection" id="completed" />Completed
+				</div>
+			</div>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>

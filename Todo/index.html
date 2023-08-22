@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="style.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Caveat&family=Libre+Baskerville&family=Poppins:wght@400;700&family=Stalinist+One&display=swap"
+			rel="stylesheet"
+		/>
+		<title>To Do</title>
+	</head>
+	<body>
+		<div class="nav">
+			<div class="left-nav">
+				<img src="images/menu-icon.svg" alt="menu icon" class="icon" />
+				<img src="images/home-icon.svg" alt="home icon" class="icon" />
+				<div class="search">
+					<img src="images/search-icon.svg" alt="" />
+					<input type="text" placeholder="Search" />
+				</div>
+			</div>
+			<div class="right-nav">
+				<button>
+					<img
+						src="images/settings_logo.svg"
+						class="modal-button icon"
+						alt=""
+					/>
+				</button>
+				<div class="modal">
+					<div class="modal-item">
+						<div class="modal-text">THEME</div>
+						<div class="modal-input">
+							<select name="theme" id="">
+								<option value="light" selected>Light</option>
+								<option value="dark">Dark</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="content">
+			<div class="sidebar">
+				<div class="sidebar-item">inbox</div>
+				<div class="sidebar-item">inbox</div>
+				<div class="sidebar-item">inbox</div>
+			</div>
+			<div class="content-body"></div>
+		</div>
+		<script src="script.js"></script>
+	</body>
+</html>

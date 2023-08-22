@@ -1,24 +1,38 @@
 "use strict";
-const ages = [5, 2, 4, 1, 15, 8, 3];
-console.log(ages);
-const calcAverageHumanAge = (dogAges) => {
-	const avgHumanAge = dogAges
-		//1.
-		.map((age) => {
-			return age <= 2 ? 2 * age : 16 + age * 4;
-		})
-		//2.
-		.filter((hAge) => {
-			console.log(hAge);
-			return hAge >= 18;
-		})
-		//3.
-		.reduce((acc, age, i, arr) => {
-			console.log(arr);
-			console.log(`Iteration ${i}: ${acc}`);
-			return acc + age / arr.length;
-		});
 
-	return avgHumanAge;
-};
-console.log(calcAverageHumanAge(ages));
+// NOTIFICATION CODE
+// request permission on page load
+// document.addEventListener("DOMContentLoaded", function () {
+// 	if (!Notification) {
+// 		alert("Desktop notifications not available in your browser. Try Chromium.");
+// 		return;
+// 	}
+
+// 	if (Notification.permission !== "granted") Notification.requestPermission();
+// });
+
+// function notifyMe() {
+// 	if (Notification.permission !== "granted") Notification.requestPermission();
+// 	else {
+// 		const notif = function () {
+// 			var notification = new Notification("Notification title", {
+// 				icon: "http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png",
+// 				body: "Hey there! You've been notified!",
+// 				timestamp: Date.now() + 4000,
+// 			});
+// 			notification.onclick = function () {
+// 				window.open("http://stackoverflow.com/a/13328397/1269037");
+// 			};
+// 		};
+// 		setTimeout(notif, 10000);
+// 	}
+// }
+
+// const n = "foo3bar5".match(/\d/g).join("");
+
+// let arr = [1, 2, 4, 3];
+let arr = ["a", "Fd", "1a"];
+arr.sort((a, b) => {
+	return a.toLowerCase().localeCompare(b.toLowerCase());
+});
+console.log(arr);

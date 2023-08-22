@@ -1,0 +1,88 @@
+:root {
+  font-size: 1rem;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.nav {
+  padding: 0.5rem 1.5rem;
+  color: white;
+  background-color: rgb(235, 73, 73);
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+.nav .left-nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+}
+.nav .left-nav .search {
+  display: flex;
+  flex-direction: row;
+  border-radius: 20px;
+  gap: 5px;
+  background-color: rgb(218, 137, 137);
+}
+.nav .left-nav .search input[type=text] {
+  border: 0;
+  font-weight: bold;
+  border-radius: 20px;
+  padding-right: 20px;
+  background-color: inherit;
+  outline: none;
+}
+.nav .left-nav .search:has(> input[type=text]:focus) {
+  background-color: white;
+}
+.nav .right-nav {
+  position: relative;
+}
+.nav .right-nav button {
+  border: 0;
+  background-color: inherit;
+}
+.nav .right-nav .modal {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  position: absolute;
+  right: 10%;
+  padding: 5px;
+  background-color: rgb(185, 181, 181);
+}
+.nav .right-nav .modal .modal-item {
+  gap: 30px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+}
+.content .sidebar {
+  padding: 20px 10px;
+  background-color: rgb(247, 208, 208);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon {
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}/*# sourceMappingURL=style.css.map */
