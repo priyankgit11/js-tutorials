@@ -31,8 +31,13 @@
 // const n = "foo3bar5".match(/\d/g).join("");
 
 // let arr = [1, 2, 4, 3];
-let arr = ["a", "Fd", "1a"];
-arr.sort((a, b) => {
-	return a.toLowerCase().localeCompare(b.toLowerCase());
-});
-console.log(arr);
+// let arr = ["a", "Fd", "1a"];
+// arr.sort((a, b) => {
+// 	return a.toLowerCase().localeCompare(b.toLowerCase());
+// });
+// console.log(arr);
+
+// setTimeout(() => {
+// 	console.log("Hello");
+// }, 4000);
+// console.log("World");

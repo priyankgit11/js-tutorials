@@ -1,20 +1,20 @@
 "use strict";
 // Defining variables
-const tasks = {
-	allTasks: [],
-	activeTasks: [],
-	completedTasks: [],
-};
+const allTasks = [];
 var barEvent = "add";
 var taskType = "all";
+var sortState = "";
 var showArr = [];
+var showSpecificArr = [];
+// /////////////////////
+allTasks.push(["asfd", false]);
+allTasks.push(["asd", false]);
+allTasks.push(["bsd", false]);
+allTasks.push(["Fsd", true]);
 // Selecting all buttons and divs
 const searchbar = document.getElementById("searchbox");
-const allEditBtn = document.querySelectorAll(".edit");
-const allDeleteBtn = document.querySelectorAll(".delete");
-const allCheckbox = document.querySelectorAll(".task-names");
 const divTasks = document.querySelector(".tasks");
-const divnoItems = document.querySelector(".no-items");
+const divNoItems = document.querySelector(".no-items");
 const addBtn = document.getElementById("add");
 const searchBtn = document.getElementById("search");
 const actionBtn = document.getElementById("actions");
@@ -22,56 +22,42 @@ const sortBtn = document.getElementById("sort");
 const selectionBtn = document.getElementsByName("selection");
 
 const selectionArray = Array.from(selectionBtn);
-console.log(Array.from(sortBtn));
 ///////////////////////////////////////////////////// Event Listeners
 // Add button
 addBtn.addEventListener("click", () => {
 	searchbar.focus();
 	barEvent = "add";
+	sortState = "";
 });
 // Search button
 searchBtn.addEventListener("click", () => {
 	searchbar.focus();
 	barEvent = "search";
+	sortState = "specific";
 });
-// checkbox
-Array.from(allCheckbox, () => {
-	addEventListener("click", () => {});
+
+// sorting droplist
+sortBtn.addEventListener("change", () => {
+	showHelper();
 });
 // searchbar
 searchbar.addEventListener("keyup", (e) => {
 	if (barEvent === "add") {
 		if (e.key === "Enter") {
 			const val = searchbar.value;
-			tasks.allTasks.push(val);
-			show();
+			allTasks.push([val, false]);
+			showHelper();
 			searchbar.value = "";
 		}
 	} else {
-		let val = "";
-		val = searchbar.value;
-		const tempArr = showArr.filter((str) => {
-			if (str.toLowerCase().includes(val.toLowerCase())) {
-				return str;
-			}
-		});
-		console.log(tempArr);
-		showSpecific(tempArr);
-		// filteredStrings = filterstrings.filter((str) => str.toLowerCase().includes(passedinstring.toLowerCase()));
+		sortState = "specific";
+		showHelper();
 	}
 });
-
 ///////////////////////////////////////////////// Functions
-// returns array name you need
-const setArrName = function (aname = taskType) {
-	return aname + "Tasks";
-};
-
 // Sort the array according to user selection
 const setOrder = function (arr) {
-	const selectedOrder = Array.from(sortBtn).find((ele) => {
-		if (ele.selected == true) return ele;
-	}).value;
+	const selectedOrder = sortBtn.value;
 	const [otype, order] = selectedOrder.split("_");
 	console.log(otype, order);
 	if (otype !== "sort") {
@@ -81,34 +67,29 @@ const setOrder = function (arr) {
 		} else {
 			if (order === "asc") {
 				arr.sort((a, b) => {
-					return a.toLowerCase().localeCompare(b.toLowerCase());
+					return a[0].toLowerCase().localeCompare(b[0].toLowerCase());
 				});
 			} else {
 				arr.sort((a, b) => {
-					return a.toLowerCase().localeCompare(b.toLowerCase());
+					return a[0].toLowerCase().localeCompare(b[0].toLowerCase());
 				});
 				arr.reverse();
 			}
 		}
 	}
-	return arr;
 };
 
 // show list of tasks
-const show = function (filteredArr = undefined) {
-	// If array not defined
-	if (filteredArr === undefined) {
-		const arrName = setArrName();
-		showArr = [...tasks[arrName]];
-		console.log(showArr);
-	} else showArr = [...filteredArr];
+const show = function (filteredArr = allTasks) {
+	showArr = filteredArr;
+	// console.log(showArr);
 	// Ordering array
-	showArr = setOrder(showArr);
+	setOrder(showArr);
 	if (showArr.length === 0) {
-		divnoItems.style.display = "flex";
+		divNoItems.style.display = "flex";
 		return;
 	} else {
-		divnoItems.style.display = "none";
+		divNoItems.style.display = "none";
 	}
 	// Clearing tasks div
 	clearTaskDiv();
@@ -119,66 +100,74 @@ const show = function (filteredArr = undefined) {
         <input
         type="checkbox"
         class="task-names"
-        name="task-names"
-        id="name${i}"
+        name="${ele[0]}"
+        id="name${i}" 
+		${ele[1] === true ? "checked" : ""}
         />
-        ${ele}
-        </div>
-        <div class="task-setting">
-        <img
-							src="images/edit-icon.png"
-							alt=""
-							class="icon edit"
-							id="edit${i}"
-						/>
-						<img
-                        src="images/delete-icon.png"
-                        alt=""
-                        class="icon delete"
-                        id="delete${i}"
-						/>
-					</div>
-                    </div>
-				<hr />`;
-		divTasks.insertAdjacentHTML("beforeend", html);
-	});
-};
-// Clear tasks div
-const clearTaskDiv = function () {
-	divTasks.textContent = "";
-};
-const showSpecific = function (specificArr) {
-	if (specificArr.length === 0) {
-		clearTaskDiv();
-		divnoItems.style.display = "flex";
-		return;
-	} else {
-		divnoItems.style.display = "none";
-	}
-	specificArr = setOrder(specificArr);
-	clearTaskDiv();
-	specificArr.forEach((ele, i) => {
-		const html = `<div class="task-item">
-        <div class="task-check">
-        <input
-        type="checkbox"
-        class="task-names"
-        name="task-names"
-        id="name${i}"
-        />
-        ${ele}
+        ${ele[0]}
         </div>
         <div class="task-setting">
         <img
         src="images/edit-icon.png"
         alt=""
         class="icon edit"
-        id="edit${i}"
+        id="edit${i}" 
+        name="${ele[0]}"
         />
         <img
         src="images/delete-icon.png"
         alt=""
         class="icon delete"
+        id="delete${i}"
+        name="${ele[0]}"
+        />
+        </div>
+        </div>
+        <hr />`;
+		divTasks.insertAdjacentHTML("beforeend", html);
+	});
+	// addTaskEvents();
+};
+// Clear tasks div
+const clearTaskDiv = function () {
+	divTasks.textContent = "";
+};
+const showSpecific = function (arr) {
+	showSpecificArr = arr;
+	if (showSpecificArr.length === 0) {
+		clearTaskDiv();
+		divNoItems.style.display = "flex";
+		return;
+	} else {
+		divNoItems.style.display = "none";
+	}
+	setOrder(showSpecificArr);
+	clearTaskDiv();
+	showSpecificArr.forEach((ele, i) => {
+		const html = `<div class="task-item">
+        <div class="task-check">
+        <input
+        type="checkbox"
+        class="task-names"
+        name="${ele[0]}"
+        id="name${i}" 
+		${ele[1] === true ? "checked" : ""}
+        />
+        ${ele[0]}
+        </div>
+        <div class="task-setting">
+        <img
+        src="images/edit-icon.png"
+        alt=""
+        class="icon edit"
+        name="${ele[0]}"
+        id="edit${i}" 
+        />
+        <img
+        src="images/delete-icon.png"
+        alt=""
+        class="icon delete"
+        name="${ele[0]}"
         id="delete${i}"
         />
         </div>
@@ -186,11 +175,81 @@ const showSpecific = function (specificArr) {
         <hr />`;
 		divTasks.insertAdjacentHTML("beforeend", html);
 	});
+	// addTaskEvents();
 };
-// tasks.allTasks.push(["asfd", false]);
-// tasks.allTasks.push(["asd", false]);
-// tasks.allTasks.push(["bsd", false]);
-// tasks.allTasks.push(["Fsd",false]);
-show();
+
+// Separate search function to handle sorting
+const search = function () {
+	let val = "";
+	val = searchbar.value;
+	console.log(showArr);
+	const tempArr = showArr.filter((str) => {
+		if (str[0].toLowerCase().includes(val.toLowerCase())) {
+			return str;
+		}
+	});
+	console.log(tempArr);
+	showSpecific(tempArr);
+	// filteredStrings = filterstrings.filter((str) => str.toLowerCase().includes(passedinstring.toLowerCase()));
+};
+
+// Show helper function
+
+// To add events to icons and checkboxes to showed tasks
+const addTaskEvents = function () {
+	////////////////////// checkboxes event listener
+	const checkboxes = Array.from(document.querySelectorAll(".task-names"));
+	checkboxes.map((box) => {
+		box.addEventListener("change", () => {
+			let tasks = allTasks;
+			const specificTask = tasks.find((task) => {
+				if (box.name === task[0]) return task;
+			});
+			if (box.checked === true) {
+				specificTask[1] = true;
+			} else {
+				specificTask[1] = false;
+			}
+			console.log(box.checked);
+		});
+	});
+
+	//////////////////// edit event listener
+
+	//////////////////// delete event listener
+	const allDeleteBtn = Array.from(document.querySelectorAll(".delete"));
+	// console.log(allDeleteBtn);
+	allDeleteBtn.map((del) => {
+		del.addEventListener("click", () => {
+			let tasks = allTasks;
+			const i = tasks.findIndex((task) => {
+				console.log(task[0]);
+				console.log(del.name);
+				if (del.name === task[0]) return task;
+			});
+			console.log(i);
+			tasks.splice(i, 1);
+			showHelper();
+			console.log(allTasks, "alltasks");
+		});
+	});
+};
+const showHelper = function (arr) {
+	sortState === "specific" ? search() : show();
+	console.log("Hello");
+	addTaskEvents();
+	console.log("World");
+};
+// const tasks = [...allTasks].map((ele) => ele[0]);
+// console.log(tasks);
+// console.log(allTasks);
+// console.log([...allTasks][0]);
 // Init function
 // const init = function () {};
+// console.log(allCheckbox.value);
+showHelper();
+// const z = Array.from(allCheckbox);
+// console.log(z[0]);
+// Array.from(z, (ele) => {
+// 	console.log(ele.checked);
+// });
