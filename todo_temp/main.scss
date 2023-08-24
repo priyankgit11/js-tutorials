@@ -62,11 +62,26 @@
 	cursor: pointer;
 }
 .search-icon {
-	width: 15px;
-	height: 15px;
+	width: 12px;
+	height: 12px;
 	margin: 0;
 	padding: 0;
 }
 .btn {
 	padding: 0;
+}
+.edit-task {
+	width: 600px;
+	display: none;
+}
+.show {
+	display: block;
+}
+.hidden {
+	display: none;
+}
+.task-test {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
 }

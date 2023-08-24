@@ -41,3 +41,8 @@
 // 	console.log("Hello");
 // }, 4000);
 // console.log("World");
+const arr = [1, 2, 3, 4, 5];
+const b = [arr[1], arr[3]];
+b[0] = 9;
+console.log(b);
+console.log(arr);
