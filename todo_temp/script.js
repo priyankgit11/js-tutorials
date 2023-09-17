@@ -36,6 +36,7 @@ const selectionBtn = document.getElementsByName("selection");
 
 // Add button
 addBtn.addEventListener("click", () => {
+	searchbar.placeholder = "Add";
 	searchbar.focus();
 	barEvent = "add";
 	sortState = "";
@@ -43,6 +44,7 @@ addBtn.addEventListener("click", () => {
 });
 // Search button
 searchBtn.addEventListener("click", () => {
+	searchbar.placeholder = "Search";
 	searchbar.focus();
 	barEvent = "search";
 	sortState = "specific";
@@ -133,8 +135,44 @@ const setOrder = function (arr) {
 		}
 	}
 };
+// Function to generate task HTML
+function generateTaskHTML(task, i) {
+	return `<div class="task-item">
+    <div class="task-check">
+      <div class="task-text">
+        <input
+          type="checkbox"
+          class="task-names"
+          name="${task[0]}"
+          id="name${i}" 
+          ${task[1] === true ? "checked" : ""}
+        />
+        ${task[0]}
+      </div>
+      <input type="text" class="edit-task" name="${
+		task[0]
+	}" id="edit-text${i}" />
+    </div>
+    <div class="task-setting">
+      <img
+        src="images/edit-icon.png"
+        alt=""
+        class="icon edit"
+        id="edit${i}" 
+        name="${task[0]}"
+      />
+      <img
+        src="images/delete-icon.png"
+        alt=""
+        class="icon delete"
+        id="delete${i}"
+        name="${task[0]}"
+      />
+    </div>
+  </div>
+  <hr />`;
+}
 // Toggle No Tasks div
-
 // show list of tasks
 const show = function () {
 	// Determine elements to show
@@ -155,38 +193,7 @@ const show = function () {
 
 	// Showing tasks
 	showArr.forEach((ele, i) => {
-		const html = `<div class="task-item">
-        <div class="task-check">
-		<div class="task-text">
-        <input
-        type="checkbox"
-        class="task-names"
-        name="${ele[0]}"
-        id="name${i}" 
-		${ele[1] === true ? "checked" : ""}
-        />
-        ${ele[0]}
-		</div>
-		<input type="text" class="edit-task" name="${ele[0]}" id="edit-text${i}" />
-        </div>
-        <div class="task-setting">
-        <img
-        src="images/edit-icon.png"
-        alt=""
-        class="icon edit"
-        id="edit${i}" 
-        name="${ele[0]}"
-        />
-        <img
-        src="images/delete-icon.png"
-        alt=""
-        class="icon delete"
-        id="delete${i}"
-        name="${ele[0]}"
-        />
-        </div>
-        </div>
-        <hr />`;
+		const html = generateTaskHTML(ele, i);
 		divTasks.insertAdjacentHTML("beforeend", html);
 	});
 	// addTaskEvents();
@@ -194,6 +201,23 @@ const show = function () {
 // Clear tasks div
 const clearTaskDiv = function () {
 	divTasks.textContent = "";
+	const showSpecific = function (arr) {
+		showSpecificArr = getWhichElements(arr);
+		if (showSpecificArr.length === 0) {
+			clearTaskDiv();
+			divNoItems.style.display = "flex";
+			return;
+		} else {
+			divNoItems.style.display = "none";
+		}
+		setOrder(showSpecificArr);
+		clearTaskDiv();
+		showSpecificArr.forEach((ele, i) => {
+			const html = generateTaskHTML(ele, i);
+			divTasks.insertAdjacentHTML("beforeend", html);
+		});
+		// addTaskEvents();
+	};
 };
 const showSpecific = function (arr) {
 	showSpecificArr = getWhichElements(arr);
@@ -206,42 +230,10 @@ const showSpecific = function (arr) {
 	}
 	setOrder(showSpecificArr);
 	clearTaskDiv();
-	showSpecificArr.forEach((ele, i) => {
-		const html = `<div class="task-item">
-        <div class="task-check">
-		<div class="task-text">
-        <input
-        type="checkbox"
-        class="task-names"
-        name="${ele[0]}"
-        id="name${i}" 
-		${ele[1] === true ? "checked" : ""}
-        />
-        ${ele[0]}
-		</div>
-		<input type="text" class="edit-task" name="${ele[0]}" id="edit-text${i}" />
-        </div>
-        <div class="task-setting">
-        <img
-        src="images/edit-icon.png"
-        alt=""
-        class="icon edit"
-        name="${ele[0]}"
-        id="edit${i}" 
-        />
-        <img
-        src="images/delete-icon.png"
-        alt=""
-        class="icon delete"
-        name="${ele[0]}"
-        id="delete${i}"
-        />
-        </div>
-        </div>
-        <hr />`;
+	showSpecificArr.forEach((task, i) => {
+		const html = generateTaskHTML(task, i);
 		divTasks.insertAdjacentHTML("beforeend", html);
 	});
-	// addTaskEvents();
 };
 
 // Separate search function to handle sorting
